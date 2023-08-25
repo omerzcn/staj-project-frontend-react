@@ -11,3 +11,137 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*table css*/
+
+.stock-table-container {
+  display: flex;
+  flex-direction: column; /* Ana eksen yatay yerine dikey olsun */
+  align-items: center; /* İçerikleri yatayda merkezlemek için */
+}
+
+.table-heading {
+  margin-bottom: 10px; /* Başlık ile tablo arasına boşluk bırakmak için */
+}
+
+/*navbar css*/
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar-cart {
+  display: flex;
+  align-items:center;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.cart-icon {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.cart-item-count {
+  background-color: green;
+  color: white;
+  border-radius: 45%;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  margin-right: auto;
+}
+
+.profile-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-center{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  margin-left: auto;
+}
+.home-link{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+/*basket */
+.count-span{
+  margin:15px;
+}
+
+.basket-page{
+  background-color: #ffffff; /* Arka plan rengi */
+}
+
+.basket-content {
+  background-color: #f7fa5e; /* İçerik arka plan rengi */
+  padding: 20px;
+  border-radius: 8px;
+  flex-direction: column; /* Öğeleri dikey olarak sıralar */
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 50%; /* İçeriğin genişliği */
+  margin-left: 25%;
+  margin-top: 10%;
+}
+
+.basket-title {
+  text-align: center;
+}
+
+.price-t{
+  color: green;
+}
+
+.Button-buy{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonBuy{
+  width: 60%;
+}
+
+
+/*profile wallet*/
+
+.wallet-container{
+  margin:15px;
+  padding: 15px;
+
+}
+
+.profile-image{
+  width: 100px;
+  
+}
+
+.profile-history-container{
+  margin-top: 10px;
+  margin-left:10%;
+  margin-right:10%;
+  margin-bottom: 20px;
+}
