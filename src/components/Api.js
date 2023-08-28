@@ -9,8 +9,9 @@ export async function fetchAndCacheStockData() {
         if (!cachedData) {
             const response = await axios.get('http://localhost:8080/api/stocks1');
             const data = response.data;
-            setCache('stockData', data);
-            console.log('stock data :',data);
+            setCache('stockData', data.content);
+            console.log('stock data :', data);
+            return data;
         }
     } catch (error) {
         console.error('Error fetching data:', error);

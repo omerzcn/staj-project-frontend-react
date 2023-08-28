@@ -3,24 +3,32 @@ import  {fetchAndCacheStockData} from '../components/Api';
 import StockTable from '../components/StockTable';
 import NavBar from '../components/Navbar';
 import { useGlobal } from '../context/GlobalContext';
-import { getCache } from '../Cache';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 
 function Home() {
-    const {cartItems, addItemToCart} = useGlobal([]);  
-    const cachedStockData = getCache('stockData');
+  const {cartItems, addItemToCart} = useGlobal([]);  
+  const [ApiData, setApiData] = useState(null);
 
-    useEffect(() => {
-      fetchAndCacheStockData();
-      
-    }, []);
+  useEffect(() => {
+    const fetchData = async  () => {
+      try {
+        const response =  await fetchAndCacheStockData();
+        setApiData(response); 
+      } catch (error) {
+        console.error('Error fetching data from home.js: ', error);
+      }
+    };
 
-    return (
-      <div className="App">
-        <NavBar cartItems={cartItems} />
-        <StockTable stockData={cachedStockData} addItemToCart={addItemToCart}/>
-      </div>
-    );
-  }
-  
-  export default Home;
+    
+    fetchData(); // Eğer ApiData boşsa veriyi çek ve setApiData ile state'i güncelle
+  }, []);
+
+  return (
+    <div className="App">
+      <NavBar cartItems={cartItems} />
+      <StockTable stockData={ApiData} addItemToCart={addItemToCart}/>
+    </div>
+  );
+}  
+export default Home;
