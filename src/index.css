@@ -145,3 +145,13 @@ code {
   margin-right:10%;
   margin-bottom: 20px;
 }
+
+.loading-container{
+  display: flex;
+  justify-content: center; /* Yatay merkezleme */
+  align-items: center; /* Dikey merkezleme */
+  height: 100vh;
+}
+.loading{
+  text-align: center; 
+}

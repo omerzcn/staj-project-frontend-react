@@ -1,22 +1,23 @@
 import axios from "axios";
-import { getCache,setCache } from "../Cache";
 
 
 //******************Home page to StockTable****************
-export async function fetchAndCacheStockData() {
+export async function fetchAndCacheStockData(currentPage, itemsPerPage) {
     try {
-        const cachedData = getCache('stockData');
-        if (!cachedData) {
-            const response = await axios.get('http://localhost:8080/api/stocks1');
-            const data = response.data;
-            setCache('stockData', data.content);
-            console.log('stock data :', data);
-            return data;
+      const response = await axios.get('http://localhost:8080/api/stocks1', {
+        params: {
+          page: currentPage,
+          size: itemsPerPage
         }
+      });
+      const data = response.data;
+      console.log('stock data:', data);
+      return data; // Sadece content verisini döndür
     } catch (error) {
-        console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error);
+      throw error; // Hata fırlat, yukarıdaki try-catch bloğunda yakala
     }
-}
+  }
 
 
 //******************Basket page to buy****************

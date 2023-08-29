@@ -2,32 +2,27 @@ import { useState, useEffect } from 'react';
 import { Button,Pagination,Table} from 'react-bootstrap';
 
 
-function StockTable({stockData, addItemToCart}) {
-  const [currentPage, setCurrentPage] = useState(1);
+function StockTable({stockData, addItemToCart, currentPage, itemsPerPage, setCurrentPage, totalPages}) {
   const [loading, setLoading] = useState(true); 
   const [data, setData] = useState([]);
 
   useEffect(() => {
     if (stockData) {
       setData(stockData.content);
+      
       setLoading(false);
     }
   }, [stockData]);
 
+  
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className='loading-container'><img src='https://r.resimlink.com/BSpOv9WYtu.gif' alt='loading' className='loading'/></div>;
   }
-
-  const itemsPerPage = stockData.numberOfElements;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentPageItems = data.slice(startIndex, endIndex);
   
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  
   return (
     <div className="stock-table-container">
       <div className="table-heading">
@@ -53,7 +48,7 @@ function StockTable({stockData, addItemToCart}) {
           </tr>
         </thead>
         <tbody>
-          {currentPageItems.map(stock => (
+          {data.map(stock => (
             <tr key={stock.symbol}>
               <td>{stock.symbol}</td>
               <td>{stock.exchange}</td>
@@ -86,7 +81,7 @@ function StockTable({stockData, addItemToCart}) {
       </Table>
       <Pagination>
         <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
-        {Array.from({ length: Math.ceil(stockData.totalElements / itemsPerPage) }).map((_, index) => (
+        {Array.from({ length: totalPages }).map((_, index) => (
           <Pagination.Item
             key={index}
             onClick={() => handlePageChange(index + 1)}
@@ -95,7 +90,7 @@ function StockTable({stockData, addItemToCart}) {
             {index + 1}
           </Pagination.Item>
         ))}
-        <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(stockData.totalElements / itemsPerPage)} />
+        <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
       </Pagination>
       </div>
     </div>
