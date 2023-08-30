@@ -67,10 +67,10 @@ function StockTable({stockData, addItemToCart, currentPage, itemsPerPage, setCur
                 {stock.price !== null ? `${stock.price.toFixed(3)} ${stock.price > stock.priceAvg50 ? '↑' : stock.price < stock.priceAvg50 ? '↓' : ''}` : ''}
               </td>
               <td style={{ color: stock.price !== null && stock.priceAvg200 !== null ? (stock.price > stock.priceAvg200 ? 'green' : stock.price < stock.priceAvg200 ? 'red' : 'black') : 'black' }}>
-                {stock.priceAvg50 !== null ? stock.priceAvg50.toFixed(4) : ''}
+                {stock.priceAvg50 !== null ? stock.priceAvg50.toFixed(3) : ''}
               </td>
               <td style={{ color: stock.price !== null && stock.priceAvg200 !== null ? (stock.price > stock.priceAvg200 ? 'green' : stock.price < stock.priceAvg200 ? 'red' : 'black') : 'black' }}>
-                {stock.priceAvg200 !== null ? stock.priceAvg200.toFixed(4) : ''}
+                {stock.priceAvg200 !== null ? stock.priceAvg200.toFixed(3) : ''}
               </td>
               <td style={{ color: 'black'}}>{stock.yearLow}</td>
               <td style={{ color: 'black'}}>{stock.yearHigh}</td>

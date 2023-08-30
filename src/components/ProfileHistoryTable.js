@@ -40,8 +40,8 @@ function ProfileHistoryTable({historyData}){
                                 <tr key={index}>
                                     <td>{purchase.stockName}</td>
                                     <td>{new Date(purchase.purchaseDate).toLocaleString()}</td>
-                                    <td>{purchase.purchasePrice}</td>
-                                    <td>{purchase.totalPrice}</td>
+                                    <td>{purchase.purchasePrice !== null ? purchase.purchasePrice.toFixed(2) : ''}$</td>
+                                    <td>{purchase.totalPrice !== null ? purchase.totalPrice.toFixed(2) : ''}$</td>
                                     <td>{purchase.quantity}</td>
                                     <td>{purchase.type}</td>
                                 </tr>

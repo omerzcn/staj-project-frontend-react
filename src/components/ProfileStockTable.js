@@ -46,15 +46,15 @@ function ProfileStockTable({ stockData, onDataChange, amount, updateAmount }) {
 
               return (
                 <tr key={stock.symbol}>
-                  <td>{stock.symbol}</td>
+                  <td>{stock.symbol !==null ? stock.symbol : ''}</td>
                   <td>{stock.name}</td>
                   <td>{stock.type}</td>
                   <td>{stock.quantity}</td>
-                  <td>{stock.price}</td>
-                  <td>{currentPrice}</td>
+                  <td>{stock.price !==null ? stock.price.toFixed(2) : ''}$</td>
+                  <td>{currentPrice !==null ? currentPrice.toFixed(2) : ''}$</td>
                   <td>
                     <li style={{ color: profitLoss > 0 ? 'green' : 'red' }}>
-                      {profitLoss}
+                      {profitLoss !== null ? profitLoss.toFixed(2) : ''}
                     </li>
                   </td>
                   <td>

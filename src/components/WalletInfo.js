@@ -21,8 +21,8 @@ function WalletInfo({Amount, profileStock}) {
         </Col>
         <Col md={5} className="d-flex justify-content-baseline">
             <div>
-                <h4>USD: {Amount}$</h4>
-                <h4>Total Stock Value: {totalStockValue}$</h4>
+                <h4>USD: {Amount.toFixed(2)}$</h4>
+                <h4>Total Stock Value: {totalStockValue.toFixed(2)}$</h4>
             </div>
         </Col>
       </Row>

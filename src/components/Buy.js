@@ -20,7 +20,7 @@ function BuyMethod({ cartItems, amount, updateAmount, setCartItems }) {
               symbol: item.symbol,
               name: item.name,
               exchange: item.exchange,
-              type: 'stock',
+              type: 'Stock',
             };
             
             // Sunucuya POST isteği gönderme
