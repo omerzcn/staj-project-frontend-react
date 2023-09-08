@@ -2,12 +2,14 @@ import axios from "axios";
 
 
 //******************Home page to StockTable****************
-export async function fetchAndCacheStockData(currentPage, itemsPerPage) {
+export async function fetchAndCacheStockData(currentPage, itemsPerPage, sortProperty, sortDirect) {
     try {
       const response = await axios.get('http://localhost:8080/api/stocks1', {
         params: {
-          page: currentPage,
-          size: itemsPerPage
+          page: currentPage-1,        //api 0. sayfadan başlıyor
+          size: itemsPerPage,
+          sort: sortProperty,
+          sortDirect: sortDirect
         }
       });
       const data = response.data;

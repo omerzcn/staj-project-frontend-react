@@ -2,16 +2,20 @@ import { useState, useEffect } from 'react';
 import { Button,Pagination,Table} from 'react-bootstrap';
 
 
-function StockTable({stockData, addItemToCart, currentPage, itemsPerPage, setCurrentPage, totalPages}) {
+function StockTable({stockData, addItemToCart, currentPage, itemsPerPage, setCurrentPage, totalPages, setSortProperty, sortProperty,
+   setSortDirect, sortDirect}) {
   const [loading, setLoading] = useState(true); 
   const [data, setData] = useState([]);
 
   useEffect(() => {
+
     if (stockData) {
+
       setData(stockData.content);
       
       setLoading(false);
     }
+
   }, [stockData]);
 
   
@@ -23,27 +27,38 @@ function StockTable({stockData, addItemToCart, currentPage, itemsPerPage, setCur
     setCurrentPage(pageNumber);
   };
 
+  function handleColumnClick(columnName) {
+
+    if(columnName === sortProperty){
+      setSortDirect(sortDirect === "ASC" ? "DESC" : "ASC");
+    }else{
+      setSortDirect("ASC");
+      setSortProperty(columnName);
+    }
+    
+  };
+
   return (
     <div className="stock-table-container">
       <div className="table-heading">
         <h1>Stock Trends</h1>
       </div>
       <div className="table-content">
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant="dark" className='stockTable'>
         <thead>
           <tr>
-            <th>Symbol</th>
-            <th>Exchange</th>
-            <th>Name</th>
-            <th>Volume</th>
-            <th>Change</th>
-            <th>Change Percent</th>
-            <th>Previous Close</th>
-            <th>-Price-</th>
-            <th>50-Day Avg Price</th>
-            <th>200-Day Avg Price</th>
-            <th>Year Low</th>
-            <th>Year High</th>
+            <th onClick={()=>handleColumnClick("symbol")}>Symbol{sortProperty === "symbol" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("exchange")}>Exchange{sortProperty === "exchange" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("name")}>Name{sortProperty === "name" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("volume")}>Volume{sortProperty === "volume" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("change")}>Change{sortProperty === "change" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("changesPercentage")}>Change Percent{sortProperty === "changesPercentage" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("previousClose")}>Previous Close{sortProperty === "previousClose" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("price")}>-Price-{sortProperty === "price" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("priceAvg50")}>50-Day Avg Price{sortProperty === "priceAvg50" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("priceAvg200")}>200-Day Avg Price{sortProperty === "priceAvg200" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("yearLow")}>Year Low{sortProperty === "yearLow" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
+            <th onClick={()=>handleColumnClick("yearHigh")}>Year High{sortProperty === "yearHigh" ? (sortDirect === "ASC" ? " ↑ " : " ↓ ") : "" }</th>
             <th>Buy</th>
           </tr>
         </thead>
@@ -55,16 +70,16 @@ function StockTable({stockData, addItemToCart, currentPage, itemsPerPage, setCur
               <td>{stock.name}</td>
               <td>{stock.volume}$</td>
               <td style={{ color: stock.change < 0 ? 'red' : 'green' }}>
-                {stock.change !== null ? `${stock.change} ${stock.change < 0 ? '↓' : '↑'}` : ''}
+                {stock.change !== null ? `${stock.change < 0 ? '' : '+'}${stock.change}` : ''}
               </td>
               <td style={{ color: stock.changesPercentage < 0 ? 'red' : 'green' }}>
-                {stock.changesPercentage !== null ? `${stock.changesPercentage.toFixed(2)}% ${stock.changesPercentage < 0 ? '↓' : '↑'}` : ''}
+                {stock.changesPercentage !== null ? `${stock.changesPercentage < 0 ? '' : '+'}${stock.changesPercentage.toFixed(2)}% ` : ''}
               </td>
               <td style={{ color: stock.previousClose > stock.price ? 'red' : 'green' }}>
-                {stock.previousClose !== null ? `${stock.previousClose} ${stock.previousClose > stock.price ? '↓' : '↑'}` : ''}
+                {stock.previousClose !== null ? `${stock.previousClose > stock.price ? '-' : '+'}${stock.previousClose}` : ''}
               </td>
               <td style={{ color: stock.price !== null && stock.priceAvg50 !== null ? (stock.price > stock.priceAvg50 ? 'green' : stock.price < stock.priceAvg50 ? 'red' : 'black') : 'black' }}>
-                {stock.price !== null ? `${stock.price.toFixed(3)} ${stock.price > stock.priceAvg50 ? '↑' : stock.price < stock.priceAvg50 ? '↓' : ''}` : ''}
+                {stock.price !== null ? `${stock.price > stock.priceAvg50 ? '+' : stock.price < stock.priceAvg50 ? '-' : ''}${stock.price.toFixed(3)}` : ''}
               </td>
               <td style={{ color: stock.price !== null && stock.priceAvg200 !== null ? (stock.price > stock.priceAvg200 ? 'green' : stock.price < stock.priceAvg200 ? 'red' : 'black') : 'black' }}>
                 {stock.priceAvg50 !== null ? stock.priceAvg50.toFixed(3) : ''}

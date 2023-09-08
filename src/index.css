@@ -15,13 +15,19 @@ code {
 /*table css*/
 
 .stock-table-container {
-  display: flex;
+  width: 100%;
+  display: grid;
   flex-direction: column; /* Ana eksen yatay yerine dikey olsun */
   align-items: center; /* İçerikleri yatayda merkezlemek için */
 }
 
 .table-heading {
   margin-bottom: 10px; /* Başlık ile tablo arasına boşluk bırakmak için */
+}
+
+.stockTable{
+  width: 100%;
+  border-collapse: collapse;
 }
 
 /*navbar css*/
@@ -155,3 +161,4 @@ code {
 .loading{
   text-align: center; 
 }
+
